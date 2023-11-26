@@ -1,0 +1,187 @@
+{
+  "workbench.colorTheme": "Atom One Dark",
+  "editor.fontFamily": "'Cascadia Code','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+  "editor.lineHeight": 28,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
+    },
+    {
+      "key": "tab",
+      "command": "indent",
+      "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus && !suggestWidgetVisible"
+    },
+    {
+      "key": "shift+tab",
+      "command": "outdent",
+      "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus && !suggestWidgetVisible"
+    },
+    {
+      "key": "tab",
+      "command": "selectNextSuggestion",
+      "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+    },
+    {
+      "key": "shift+tab",
+      "command": "selectPrevSuggestion",
+      "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    {
+      "key": "tab",
+      "command": "indent",
+      "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+    },
+    {
+      "key": "shift+tab",
+      "command": "outdent",
+      "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus"
+    },
+    {
+      "before": ["i", "o"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.normalModeKeyBindings": [
+    {
+      "key": "tab",
+      "command": "indent",
+      "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus && !suggestWidgetVisible"
+    },
+    {
+      "key": "shift+tab",
+      "command": "outdent",
+      "when": "editorTextFocus && !editorReadonly && !editorTabMovesFocus && !suggestWidgetVisible"
+    },
+    {
+      "key": "tab",
+      "command": "selectNextSuggestion",
+      "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+    },
+    {
+      "key": "shift+tab",
+      "command": "selectPrevSuggestion",
+      "when": "editorTextFocus && suggestWidgetMultipleSuggestions && suggestWidgetVisible"
+    },
+    {
+      "before": ["<C-d>"],
+      "after": ["<C-d>", "zz"]
+    },
+    {
+      "before": ["g", "h"],
+      "after": ["0"]
+    },
+    {
+      "before": ["g", "l"],
+      "after": ["$"]
+    },
+    {
+      "before": ["Y"],
+      "after": ["y", "$"]
+    },
+    {
+      "before": ["<leader>", "s"],
+      "after": ["<leader>", "<leader>", "s"]
+    }
+    // {
+    //   "before": ["n"],
+    //   "after": ["n" , "z", "z", "z", "v"]
+    // },
+    // {
+    //   "before": ["N"],
+    //   "after": ["N" , "z", "z", "z", "v"]
+    // },
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["K"],
+      "commands": ["lineBreakInsert"],
+      "silent": true
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.handleKeys": {
+    "<C-x>": false,
+    "<C-c>": false,
+    "<C-w>": false,
+    "<C-d>": true
+  },
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.fontLigatures": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "none",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "vim.cursorStylePerMode.normal": "block-outline",
+  "vim.cursorStylePerMode.insert": "line",
+  "editor.cursorBlinking": "smooth",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
+  "gitlens.advanced.messages": {
+    "suppressGitMissingWarning": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.lineNumbers": "relative",
+  "vetur.validation.templateProps": true,
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "prettier.jsxSingleQuote": true,
+  "git.enableSmartCommit": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "vim.foldfix": true,
+  "editor.showFoldingControls": "always",
+  "editor.folding": true,
+  "editor.foldingStrategy": "indentation",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "prettier.configPath": "/home/mickey/.prettierConfig",
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "vim.vimrc.enable": true,
+  "vim.vimrc.path": "$HOME/.vscodevimrc",
+  "vim.camelCaseMotion.enable": true,
+  "vim.highlightedyank.enable": true,
+  "vim.highlightedyank.color": "rgba(52, 143, 235)",
+  "vim.visualstar": true
+  // "vim.sneak": true
+}
