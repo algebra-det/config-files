@@ -1,0 +1,7 @@
+[user]
+	name = Akash Chauhan
+	email = akash.th4kur@gmail.com
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
