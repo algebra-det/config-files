@@ -34,6 +34,12 @@
     }
   ],
   "vim.visualModeKeyBindings": [
+    { "before": ["<"], "commands": ["editor.action.outdentLines"] },
+    { "before": [">"], "commands": ["editor.action.indentLines"] },
+    {
+      "before": [";", ";"],
+      "after": ["<Esc>"]
+    },
     {
       "key": "tab",
       "command": "indent",
@@ -172,7 +178,6 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.formatOnSave": true,
   "prettier.configPath": "/home/mickey/.prettierConfig",
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -182,6 +187,10 @@
   "vim.camelCaseMotion.enable": true,
   "vim.highlightedyank.enable": true,
   "vim.highlightedyank.color": "rgba(52, 143, 235)",
-  "vim.visualstar": true
-  // "vim.sneak": true
+  "vim.visualstar": true,
+  "editor.formatOnSave": false,
+  "vim.replaceWithRegister": true
+  // "vim.sneak": true,
+  // "vim.sneakReplacesF": true,
+  // "vim.sneakUseIgnorecaseAndSmartcase": true
 }
