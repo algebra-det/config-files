@@ -10,6 +10,6 @@ M.general = {
   },
     i = {
     ["<C-BS>"] = { "<C-w>", "Delete word back" },
-    ["<A-'>"] = { '<Esc>yiwo/* eslint-disable no-console */<CR>console.log("<Esc>pa: ", <Esc>pa);<Esc>', "Console log the word" },
+    ["<A-'>"] = { '<Esc>lyiwo/* eslint-disable no-console */<CR>console.log("<Esc>pa: ", <Esc>pa);<Esc>', "Console log the word" },
   },
 }
