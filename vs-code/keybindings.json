@@ -183,8 +183,14 @@
     "command": "-extension.logSelectedValue",
     "when": "editorTextFocus && !editorReadonly"
   },
+    {
+    "key": "alt+;",
+    "command": "extension.insertLogStatement",
+    "when": "editorTextFocus"
+  },
   {
-    "key": "alt+l",
-
+    "key": "alt+'",
+    "command": "-extension.insertLogStatement",
+    "when": "editorTextFocus"
   }
 ]
