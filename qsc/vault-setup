@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+
+progress=1
+total_steps=6
+
+root_token=myroot
+vault_endpoint='http://127.0.0.1:1234'
+role_path="approle"
+
+silent_get () {
+  curl -X GET "$vault_endpoint/$1" -H "X-Vault-Token: $root_token" -sS
+}
+
+silent_post () {
+  echo $2;
+  curl -X POST "$vault_endpoint/$1" -H 'Content-Type: application/json' -H "X-Vault-Token: $root_token" -d "$2" -sS
+}
+
+silent_delete () {
+  curl -X DELETE "$vault_endpoint/$1" -H "X-Vault-Token: $root_token" -sS
+}
+
+
+exit_on_error () {
+ if echo $1 | grep 'error'; then
+  echo "Encountered error on step $progress/$total_steps $2"
+  exit;
+ fi;
+}
+
+track_progress () {
+  echo "Progress $progress/$total_steps $1"
+  progress=$(($progress+1))
+}
+
+CONTAINER_ID=$(docker ps --filter "name=local_vault" --format "{{.ID}}")
+UNSEAL_KEY=$(docker logs $CONTAINER_ID 2>&1 | grep -oP "Unseal Key: \K.*" | tail -1)
+
+# UNSEAL
+
+dump=$(silent_post 'v1/sys/unseal' '{"key": "'$UNSEAL_KEY'"}')
+exit_on_error "$dump"
+track_progress 'Unsealed vault'
+
+# INIT APPROLE LOGIN TYPE
+
+dump=$(silent_delete "v1/sys/auth/$role_path")
+dump=$(silent_post "v1/sys/auth/$role_path" '{"type": "approle"}')
+exit_on_error "$dump"
+track_progress 'Created approle login type'
+
+# CREATE MANAGER APPROLE ROLE
+
+dump=$(silent_post "v1/auth/$role_path/role/manager" '{"policies": ["my-policy"]}')
+exit_on_error "$dump"
+track_progress 'Created manager approle role'
+
+# CREATE CUSTOM POLICY
+dump=$(silent_post 'v1/sys/policies/acl/my-policy' '{"policy": "path \"secret/*\" {capabilities = [\"read\", \"create\", \"delete\", \"update\"]}"}')
+exit_on_error "$dump"
+track_progress 'Created custom policy for kv storage'
+
+# GET MANAGER CREDENTIALS
+
+dump=$(silent_get "v1/auth/$role_path/role/manager/role-id")
+exit_on_error "$dump" 'failed to get manager role-id'
+ROLE_ID=$(echo $dump | grep -oP '"role_id":\s*"\K[^"]*')
+
+dump=$(silent_post "v1/auth/$role_path/role/manager/secret-id")
+exit_on_error "$dump" 'failed to generate manager secret id'
+SECRET_ID=$(echo $dump | grep -oP '"secret_id":\s*"\K[^"]*')
+
+track_progress 'Retrieved credentials for manager approle'
+
+# CREATE SELF SIGNED CERTIFICATE
+
+PASSPHRASE='qrem-vault'
+KEY_FILE='self-signed-key.pem'
+CERT_FILE='self-signed-cert.pem'
+
+dump=$(openssl req -x509 -newkey rsa:4096 -keyout $KEY_FILE -out $CERT_FILE -days 365 \
+  -passout pass:$PASSPHRASE \
+  -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com" > /dev/null 2>&1)
+
+CERT_FILE='self-signed-cert.pem'
+cert=$(awk '{printf "%s\\n", $0}' $CERT_FILE)
+key=$(awk '{printf "%s\\n", $0}' $KEY_FILE)
+
+body='{ "data": {"crt": "'$cert'", "key": "'$key'", "passphrase": "'$PASSPHRASE'" }}'
+
+CERT_PATH='data/cert'
+
+dump=$(silent_post "v1/secret/$CERT_PATH" "{ \"data\": {\"crt\": \"$cert\", \"key\": \"$key\", \"passphrase\": \"$PASSPHRASE\" }}")
+rm $KEY_FILE
+rm $CERT_FILE
+exit_on_error "$dump"
+track_progress 'Created self signed certificate and put it in the kv storage'
+
+
+echo 'Setup complete';
+echo "
+VAULT_ENDPOINT=$vault_endpoint
+VAULT_CERT_PATH=$CERT_PATH
+VAULT_DEBUG_CERT_PATH=$CERT_PATH
+VAULT_ROLE_ID=$ROLE_ID
+VAULT_SECRET_ID=$SECRET_ID
+VAULT_ROLE_PATH=$role_path
+"
