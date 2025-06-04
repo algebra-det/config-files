@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+echo "---------------- setting up docker services ---------------"
+
+# restart-containers
+# docker restart postgres-historical
+# docker restart postgres-operational
+
+echo "---------------- restarted docker services ----------------"
+
+echo "---------------- copying vault vars -----------------------"
+start_vault_script
+echo "---------------- done copying vault vars ------------------"
+
+# Directory names to process
+prefix_dir="/home/akash/documents/qsys/qrem"
+
+if [[ -z "$prefix_dir" ]]; then
+  echo "Error: Prefix Dir is not available"
+  exit 1
+fi
+
+directories=(
+  "${prefix_dir}/qrem-beta"
+  "${prefix_dir}/qrem-core-composite"
+  "${prefix_dir}/qrem-user-composite"
+  "${prefix_dir}/qrem-core-composite"
+  "${prefix_dir}/qrem-stat"
+  "${prefix_dir}/qrem-assets"
+  "${prefix_dir}/qrem-relay-external"
+  "${prefix_dir}/qrem-relay-internal"
+  "${prefix_dir}/azure-agent-wad"
+  "${prefix_dir}/azure-analytics-api"
+)
+
+tmux_session_name="reflect"
+
+# Create new detached session
+tmux new -s "${tmux_session_name}" -d
+
+# Loop through each directory
+export SERVER_TYPE="node"
+for dir in "${directories[@]}"; do
+  cd "$dir" || continue
+  dirName=$(basename "$PWD")
+  echo "creating session $dirName"
+  tmux new-window -t "${tmux_session_name}" -n $dirName set_variable
+done
