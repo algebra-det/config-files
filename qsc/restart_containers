@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Shared RabbitMQ broker
+docker restart local_rabbitmq
+
+# Shared SMTP server
+docker restart local_mail_beta
+
+# MySQL database
+docker restart local_mysql_beta
+
+# Cold Storage MySQL Database
+docker restart local_mysql_beta_archive
+
+# Postgres Database
+docker restart postgres-operational
+
+# TimeScale DB
+docker restart postgres-historical
+
+# Redis key-value storage
+docker restart local_redis_beta
+docker restart local_redis_core
+docker restart local_redis_stat
+
+# Mongo Client
+docker restart mongodb_local
+
+# Vault secrets storage
+docker restart local_vault_core
+
+echo "Finished restarting all Docker containers"
