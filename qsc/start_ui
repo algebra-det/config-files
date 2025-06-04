@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+ui_dir="/home/akash/documents/qsys/ui/"
+
+cd $ui_dir
+tmux new-window -t "${tmux_session_name}" -n UI set_ui_qrem
