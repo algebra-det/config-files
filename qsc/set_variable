@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+export SERVER_TYPE="node"
+zsh
