@@ -1,7 +1,7 @@
 {
-  "workbench.colorTheme": "Atom One Dark",
+  "workbench.colorTheme": "Gruvbox Dark Medium",
   "editor.fontFamily": "'Cascadia Code','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-  "editor.lineHeight": 28,
+  "editor.lineHeight": 24,
   "editor.cursorSmoothCaretAnimation": "on",
   "vim.easymotion": true,
   "vim.incsearch": true,
@@ -111,7 +111,8 @@
     "<C-x>": false,
     "<C-c>": false,
     "<C-w>": false,
-    "<C-d>": true
+    "<C-d>": true,
+    "<C-k>": false
   },
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter-notebook"
@@ -123,7 +124,7 @@
   "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "none",
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -143,7 +144,7 @@
     "suppressGitMissingWarning": true
   },
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
   "editor.lineNumbers": "relative",
   "vetur.validation.templateProps": true,
@@ -172,20 +173,30 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "prettier.configPath": "/home/akash/.prettierConfig",
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "vim.vimrc.enable": true,
-  "vim.vimrc.path": "/home/akash/.vscodevimrc",
+  "vim.vimrc.path": "c:\\Users\\akash.chauhan\\.vscodevimrc",
   "vim.camelCaseMotion.enable": true,
   "vim.highlightedyank.enable": true,
   "vim.highlightedyank.color": "rgba(52, 143, 235)",
   "vim.visualstar": true,
-  "git.mergeEditor": true,
-  "editor.stickyScroll.enabled": false,
-  "settingsSync.ignoredExtensions": [
-    "siva-geddada.code-logger"
+  "security.allowedUNCHosts": [
+    "wsl.localhost"
   ],
-  "editor.tabSize": 2
+  "remote.autoForwardPortsSource": "hybrid",
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "update.showReleaseNotes": false,
+  "@azure.argTenant": "",
+  "editor.accessibilitySupport": "off",
+  "github.copilot.chat.codeGeneration.instructions": [
+    {
+      "text": "- @azure Rule - Use Azure Best Practices: When generating code for Azure, running terminal commands for Azure, or performing operations related to Azure, invoke your `azure_development-get_best_practices` tool if available."
+    }
+  ]
   // "vim.sneak": true
 }
