@@ -152,3 +152,9 @@ if [[ $SERVER_TYPE == "node" ]]; then
         npm run start
         export SERVER_TYPE=""
 fi
+
+if [[ $QREM_UI == "qrem-ui" ]]; then
+        echo "Starting qrem UI"
+        npm run qrem:watch
+        export QREM_UI=""
+fi
