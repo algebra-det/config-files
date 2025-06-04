@@ -24,7 +24,6 @@ directories=(
   "${prefix_dir}/qrem-beta"
   "${prefix_dir}/qrem-core-composite"
   "${prefix_dir}/qrem-user-composite"
-  "${prefix_dir}/qrem-core-composite"
   "${prefix_dir}/qrem-stat"
   "${prefix_dir}/qrem-assets"
   "${prefix_dir}/qrem-relay-external"
