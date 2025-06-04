@@ -35,9 +35,16 @@ directories=(
 tmux_session_name="reflect"
 
 # Create new detached session
-tmux new -s "${tmux_session_name}" -d
+# tmux new -s "${tmux_session_name}" -d -n UI 
 
-# Loop through each directory
+# UI Start
+ui_dir="/home/akash/documents/qsys/ui/"
+
+cd $ui_dir
+tmux new -s "${tmux_session_name}" -d -n UI set_ui_qrem
+# UI End
+
+# Loop through each directory for MS
 export SERVER_TYPE="node"
 for dir in "${directories[@]}"; do
   cd "$dir" || continue
