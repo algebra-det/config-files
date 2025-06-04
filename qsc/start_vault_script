@@ -16,6 +16,8 @@ directories=(
 # Run the vault-setup script and capture its output
 vault_output=$(vault-setup)
 
+sleep 2
+
 # Extract the VAULT_ROLE_ID and VAULT_SECRET_ID from the output
 role_id_line=$(echo "$vault_output" | grep "VAULT_ROLE_ID=")
 secret_id_line=$(echo "$vault_output" | grep "VAULT_SECRET_ID=")
