@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+# Define an array of directories to check
+prefix_dir="/home/akash/documents/qsys/qrem"
+
+if [[ -z "$prefix_dir" ]]; then
+  echo "Error: Prefix Dir is not available"
+  exit 1
+fi
+
+directories=(
+  "${prefix_dir}/qrem-core-composite"
+  "${prefix_dir}/qrem-beta"
+)
+
+# Run the vault-setup script and capture its output
+vault_output=$(vault-setup)
+
+# Extract the VAULT_ROLE_ID and VAULT_SECRET_ID from the output
+role_id_line=$(echo "$vault_output" | grep "VAULT_ROLE_ID=")
+secret_id_line=$(echo "$vault_output" | grep "VAULT_SECRET_ID=")
+
+echo "$role_id_line"
+echo "$secret_id_line"
+
+# Check if we found the values
+if [[ -z "$role_id_line" || -z "$secret_id_line" ]]; then
+  echo "Error: Could not find VAULT_ROLE_ID or VAULT_SECRET_ID in the output"
+  exit 1
+fi
+
+# Initialize an empty array for env files
+env_files=()
+
+# Find .env files in each specified directory
+for dir in "${directories[@]}"; do
+  if [[ -d "$dir" ]]; then
+    while IFS= read -r -d '' file; do
+      env_files+=("$file")
+    done < <(find "$dir" -name ".env" -print0)
+  else
+    echo "Warning: Directory $dir does not exist, skipping"
+  fi
+done
+
+echo "Found ${#env_files[@]} .env files"
+
+# Loop through each .env file
+for env_file in "${env_files[@]}"; do
+  echo "Processing $env_file"
+
+  if grep -q "VAULT_ROLE_ID=" "$env_file" && grep -q "VAULT_SECRET_ID=" "$env_file"; then
+    echo "  Updating VAULT credentials in $env_file"
+
+    temp_file=$(mktemp)
+
+    while IFS= read -r line; do
+      if [[ "$line" == VAULT_ROLE_ID=* ]]; then
+        echo "$role_id_line" >> "$temp_file"
+      elif [[ "$line" == VAULT_SECRET_ID=* ]]; then
+        echo "$secret_id_line" >> "$temp_file"
+      else
+        echo "$line" >> "$temp_file"
+      fi
+    done < "$env_file"
+
+    mv "$temp_file" "$env_file"
+    echo "  Updated successfully"
+  else
+    echo "  No VAULT credentials found in $env_file, skipping"
+  fi
+done
+
+echo "All .env files processed"
