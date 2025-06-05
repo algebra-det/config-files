@@ -48,7 +48,7 @@ my_dict["azure-analytics-api"]="Analytics"
 tmux_session_name="reflect"
 
 # Create new detached session
-tmux new -s "${tmux_session_name}" -d -n UI 
+tmux new -s "${tmux_session_name}" -d -n dummy 
 
 # Loop through each directory for MS
 export SERVER_TYPE="node"
@@ -58,3 +58,5 @@ for dir in "${directories[@]}"; do
   echo "creating session $dirName"
   tmux new-window -t "${tmux_session_name}" -n "${my_dict[$dirName]}" set_variable
 done
+
+tmux kill-window -t dummy
