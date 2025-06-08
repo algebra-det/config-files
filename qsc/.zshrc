@@ -78,9 +78,9 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-        git
-        zsh-autosuggestions
-        zsh-syntax-highlighting
+	git
+	zsh-autosuggestions
+	zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -93,11 +93,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+ else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -119,11 +119,11 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 if [ -f ~/.bash_aliases_qsc ]; then
-            . ~/.bash_aliases_qsc
+	    . ~/.bash_aliases_qsc
 fi
 
 if [ -f ~/.bash_aliases ]; then
-            . ~/.bash_aliases
+	    . ~/.bash_aliases
 fi
 
 bindkey '^ ' autosuggest-accept
@@ -148,13 +148,25 @@ export PATH="$PATH:/home/akash/bin"
 export NODE_OPTIONS="--max-old-space-size=16384"
 
 if [[ $SERVER_TYPE == "node" ]]; then
-        echo "Starting node server"
-        npm run start
-        export SERVER_TYPE=""
+	echo "Starting node server"
+	npm run start
+	export SERVER_TYPE=""
 fi
 
 if [[ $QREM_UI == "qrem-ui" ]]; then
-        echo "Starting qrem UI"
-        npm run qrem:watch
-        export QREM_UI=""
+	echo "Starting qrem UI"
+	npm run qrem:watch
+	export QREM_UI=""
 fi
+
+# eval "$(fzf --zsh)"
+
+# Yazi
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
