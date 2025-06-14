@@ -1,3 +1,0 @@
-return {
-  { "copilot", enabled = false },
-}
