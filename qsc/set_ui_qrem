@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-export QREM_UI="qrem-ui"
-code .
-zsh
