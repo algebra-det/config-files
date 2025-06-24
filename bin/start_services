@@ -44,7 +44,7 @@ my_dict["qrem-relay-internal"]="Internal"
 my_dict["azure-agent-wad"]="Agent"
 my_dict["azure-analytics-api"]="Analytics"
 
-tmux_session_name="reflect"
+tmux_session_name="Reflect"
 
 # Create new detached session
 tmux new -s "${tmux_session_name}" -d -n dummy
@@ -64,3 +64,6 @@ tmux new -s "${tmux_code_session_name}" -d -n qrem "nvim ${prefix_dir}"
 
 # Start UI
 echo "Creating UI Window"
+start_ui
+
+tmux kill-window -t dummy
