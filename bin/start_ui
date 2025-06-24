@@ -4,7 +4,7 @@ ui_dir="/home/akash/documents/qsys/ui/"
 cd $ui_dir
 
 # Running "npm run qrem:watch"
-tmux_session_name="reflect"
+tmux_session_name="Reflect"
 tmux new-window -t "${tmux_session_name}" -n UI set_ui_qrem
 
 # Running NeoVim in qrem-ui
