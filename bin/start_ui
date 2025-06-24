@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+ui_dir="/home/akash/documents/qsys/ui/"
+cd $ui_dir
+
+# Running "npm run qrem:watch"
+tmux_session_name="reflect"
+tmux new-window -t "${tmux_session_name}" -n UI set_ui_qrem
+
+# Running NeoVim in qrem-ui
+tmux_code_session_name="Code"
+
+tmux new-window -t "${tmux_code_session_name}" -d -n UI "nvim ."
